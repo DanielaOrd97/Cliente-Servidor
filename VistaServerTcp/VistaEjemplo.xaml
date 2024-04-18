@@ -1,0 +1,139 @@
+﻿<Window x:Class="VistaServerTcp.VistaEjemplo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:VistaServerTcp.ViewModels"
+        xmlns:local="clr-namespace:VistaServerTcp"
+        mc:Ignorable="d"
+        Title="VistaEjemplo" Height="450" Width="800" WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        BorderThickness="0"
+        >
+
+    <Window.DataContext>
+        <vm:ServidorViewModel></vm:ServidorViewModel>
+    </Window.DataContext>
+
+    <Border Background="{StaticResource Background_Color}"
+            CornerRadius="10"
+            >
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".7*"></RowDefinition>
+                <RowDefinition Height=".3*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Hidden"
+                          HorizontalAlignment="Center"
+                          >
+
+                <ListBox Width="500"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         ItemsSource="{Binding ImagenesUsuarios}"
+                         >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="500">
+                                <Image Width="350"
+                                       Height="350"
+                                       Source="{Binding ElementName=listaimg, Path=SelectedItem.img}"
+                                       ></Image>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="10" 
+                                     Color="Black" 
+                                     Opacity="0.5">     
+                                    </DropShadowEffect>
+                                </Border.Effect>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+            </ScrollViewer>
+
+            <Button HorizontalAlignment="Right"
+                            Background="Transparent"
+                            Height="65"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Command="{Binding AvanzarCommand}"
+                            Click="Button_Click"
+                            Tag="{Binding ElementName= sv}"
+                            Margin="0,0,55,0"
+                            >
+                <Image Source="\Assets\arrow1.png"
+                               ></Image>
+            </Button>
+
+            <Button HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Height="65"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Command="{Binding RetrocederCommand}"
+                    Margin="55,0,0,0"
+                    >
+                <Image Source="\Assets\arrow1-2.png"
+                ></Image>
+            </Button>
+
+
+            <ScrollViewer Grid.Row="1"
+                          HorizontalScrollBarVisibility="Visible"
+                          VerticalScrollBarVisibility="Hidden"
+                          >
+                <ListBox x:Name="listaimg"
+          Background="Transparent"
+          BorderThickness="0" 
+          ItemsSource="{Binding ImagenesUsuarios}" 
+          >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#C3ACD0"
+                             Margin="2"
+                             Width="100"
+                             CornerRadius="5"
+                             Height="100"
+                             >  
+                                <StackPanel VerticalAlignment="Center">
+                                    <Image Source="{Binding img}"
+                                            Width="80"
+                                            Height="80"
+                                            ></Image>
+                                    <TextBlock TextAlignment="Center"
+                                                FontWeight="Bold"
+                                                Foreground="White"
+                                                Text="{Binding Autor}"
+                                                ></TextBlock>   
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </ScrollViewer>
+
+
+        </Grid>
+        
+    </Border>
+    
+    
+    
+</Window>
