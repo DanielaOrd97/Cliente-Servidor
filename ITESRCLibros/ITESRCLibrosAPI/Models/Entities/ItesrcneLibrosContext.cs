@@ -37,7 +37,9 @@ public partial class ItesrcneLibrosContext : DbContext
 
             entity.Property(e => e.Autor).HasMaxLength(100);
             entity.Property(e => e.FechaActualizacion).HasColumnType("datetime");
-            entity.Property(e => e.Id).HasColumnType("int(11)");
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd()
+                .HasColumnType("int(11)");
             entity.Property(e => e.Portada).HasMaxLength(100);
             entity.Property(e => e.Titulo).HasMaxLength(100);
         });

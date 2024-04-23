@@ -56,5 +56,25 @@ namespace ITESRCLibrosAPI.Controllers
 
             
         }
+
+
+        //[HttpGet("{fecha?:datetime}")]
+        [HttpGet("{fecha?}")]
+        public IActionResult Get(DateTime? fecha)
+        {
+            var libros = Repository.GetAll()
+                .Where(x => fecha == null || x.FechaActualizacion > fecha)
+                .OrderBy(x => x.Titulo)
+                .Select(x => new LibroDTO
+                {
+                    Id = x.Id,
+                    Titulo = x.Titulo,
+                    Autor = x.Autor,
+                    Eliminado = x.Eliminado,
+                    Portada = x.Portada
+                });
+
+            return Ok(libros);
+        }
     }
 }
