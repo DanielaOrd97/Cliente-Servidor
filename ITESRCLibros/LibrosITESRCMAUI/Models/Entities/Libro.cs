@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 using SQLite.Net.Attributes;
-using TableAttribute = SQLite.Net.Attributes.TableAttribute;
+//using TableAttribute = SQLite.Net.Attributes.TableAttribute;
 
 namespace LibrosITESRCMAUI.Models.Entities
 {
-    [Table("Libros")]
+    [SQLite.Net.Attributes.Table("Libros")]
     public class Libro
     {
         [PrimaryKey]
