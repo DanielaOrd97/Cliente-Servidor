@@ -5,12 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:LibrosITESRCMAUI"
     xmlns:views="clr-namespace:LibrosITESRCMAUI.Views"
+    xmlns:vm="clr-namespace:LibrosITESRCMAUI.ViewModels"
     Shell.FlyoutBehavior="Disabled"
     Title="LibrosITESRCMAUI"
     Shell.BackgroundColor="Maroon"
     Shell.ForegroundColor="White"
-    
     >
+
+    <Shell.BindingContext>
+        <vm:LibrosViewModel></vm:LibrosViewModel>
+    </Shell.BindingContext>
 
     <ShellContent
    ContentTemplate="{DataTemplate views:ListaView}"
