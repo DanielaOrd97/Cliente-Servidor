@@ -1,4 +1,5 @@
 ﻿using LibrosITESRCMAUI.Models.DTOs;
+using LibrosITESRCMAUI.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace LibrosITESRCMAUI.Services
     {
         //conectar con API externa y deposita datos en la base de datos local.
         HttpClient cliente;
+        Repositories.LibroRepository librosRepository = new();
 
         public LibroService()
         {
@@ -47,7 +49,55 @@ namespace LibrosITESRCMAUI.Services
 
         public async Task GetLibros()
         {
+            try
+            {
+                //Bajar informacion
+                var response = await cliente.GetFromJsonAsync<List<LibrosDTO>>("api/libros");
 
+                //Guardar en base de datos
+                if(response != null)
+                {
+                    foreach (LibrosDTO libro in response)
+                    {
+                        var entidad = librosRepository.Get(libro.Id ?? 0);
+
+                        if(entidad == null && libro.Eliminado == false) //si no esta en bd local, agregar.
+                        {
+                            entidad = new() { 
+                                Id = libro.Id ?? 0,
+                                Autor = libro.Autor,
+                                Portada = libro.Portada,
+                                Titulo = libro.Titulo
+                            
+                            };
+
+                            librosRepository.Insert(entidad);  
+                        }
+                        else 
+                        {
+                            if(entidad != null)
+                            {
+                                if (entidad.Eliminado)
+                                {
+                                    librosRepository.Delete(entidad);
+                                }
+                                else
+                                {
+                                    librosRepository.Update(entidad);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+               
+            }
+            catch
+            {
+
+                throw;
+            }
         }
     }
 }

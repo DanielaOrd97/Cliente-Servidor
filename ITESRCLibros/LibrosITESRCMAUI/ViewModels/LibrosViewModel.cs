@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LibrosITESRCMAUI.Models.DTOs;
+using LibrosITESRCMAUI.Models.Entities;
 using LibrosITESRCMAUI.Models.Validators;
+using LibrosITESRCMAUI.Repositories;
 using LibrosITESRCMAUI.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,9 @@ namespace LibrosITESRCMAUI.ViewModels
 {
     public partial class LibrosViewModel:ObservableObject
     {
+        LibroRepository libroRepository = new();
+
+        public ObservableCollection<Libro> Libros { get; set; } = new();
 
         LibroService service = new();
 
@@ -25,6 +31,7 @@ namespace LibrosITESRCMAUI.ViewModels
         [RelayCommand]
         public void Nuevo() //vista
         {
+            Libro = new();
             Shell.Current.GoToAsync("//Agregar");
         }
 
@@ -65,5 +72,15 @@ namespace LibrosITESRCMAUI.ViewModels
             }
            
         }
+
+        void ActualizarLibros()
+        {
+            Libros.Clear();
+            foreach (var item in Libros)
+            {
+                
+            }
+        }
+
     }
 }

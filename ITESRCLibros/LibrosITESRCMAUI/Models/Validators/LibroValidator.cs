@@ -21,6 +21,11 @@ namespace LibrosITESRCMAUI.Models.Validators
 
         private bool ValidarUrl(string url)
         {
+            if(url == null)
+            {
+                return false;
+            }
+
             return url.StartsWith("https://") && url.EndsWith(".jpg");
         }
     }
