@@ -28,6 +28,13 @@ namespace LibrosITESRCMAUI.ViewModels
         [ObservableProperty]
         private string error = "";
 
+
+        public LibrosViewModel()
+        {
+            ActualizarLibros();
+        }
+
+
         [RelayCommand]
         public void Nuevo() //vista
         {
@@ -51,6 +58,8 @@ namespace LibrosITESRCMAUI.ViewModels
 
             try
             {
+                ActualizarLibros();
+
                 if (Libro != null)
                 {
                     var resultado = validator.Validate(libro);
@@ -76,9 +85,9 @@ namespace LibrosITESRCMAUI.ViewModels
         void ActualizarLibros()
         {
             Libros.Clear();
-            foreach (var item in Libros)
+            foreach (var libro in libroRepository.GetAll())
             {
-                
+                Libros.Add(libro);
             }
         }
 

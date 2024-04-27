@@ -8,10 +8,10 @@
         <ToolbarItem Text="Nuevo" Command="{Binding NuevoCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
     
-    <ListView>
+    <ListView ItemsSource="{Binding Libros}">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ImageCell></ImageCell>
+                <ImageCell Text="{Binding Titulo}" Detail="{Binding Autor}" ImageSource="{Binding Portada}"></ImageCell>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
