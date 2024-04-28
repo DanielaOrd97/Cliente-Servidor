@@ -10,6 +10,7 @@
     Title="LibrosITESRCMAUI"
     Shell.BackgroundColor="Maroon"
     Shell.ForegroundColor="White"
+    Shell.TitleColor="White"
     >
 
     <Shell.BindingContext>

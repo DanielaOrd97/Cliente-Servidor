@@ -32,9 +32,10 @@ namespace LibrosITESRCMAUI.Services
             //await cliente.PostAsync("api/libros",new StringContent(json, Encoding.UTF8, "application/json"));
 
             //FORMA FACIL (versiones nuevas) PETICION
-            var response = await cliente.PostAsJsonAsync<LibrosDTO>("api/libros", dto);
+            // var response = await cliente.PostAsJsonAsync<LibrosDTO>("api/libros", dto);
+            var response = await cliente.PostAsJsonAsync("api/libros", dto);
 
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 await GetLibros(); //Baja los libros de la api a la DB local.
             }
@@ -63,7 +64,8 @@ namespace LibrosITESRCMAUI.Services
 
                         if(entidad == null && libro.Eliminado == false) //si no esta en bd local, agregar.
                         {
-                            entidad = new() { 
+                            entidad = new()
+                            { 
                                 Id = libro.Id ?? 0,
                                 Autor = libro.Autor,
                                 Portada = libro.Portada,
@@ -96,7 +98,6 @@ namespace LibrosITESRCMAUI.Services
             catch
             {
 
-                throw;
             }
         }
     }

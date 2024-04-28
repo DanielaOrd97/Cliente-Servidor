@@ -58,14 +58,14 @@ namespace LibrosITESRCMAUI.ViewModels
 
             try
             {
-                ActualizarLibros();
 
                 if (Libro != null)
                 {
-                    var resultado = validator.Validate(libro);
+                    var resultado = validator.Validate(Libro);
                     if (resultado.IsValid)
                     {
-                        await service.Agregar(libro);
+                        await service.Agregar(Libro);
+                        ActualizarLibros();
                         Cancelar();
                     }
                     else

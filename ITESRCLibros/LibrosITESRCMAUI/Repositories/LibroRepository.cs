@@ -14,8 +14,9 @@ namespace LibrosITESRCMAUI.Repositories
 
         public LibroRepository()
         {
-            string ruta = FileSystem.AppDataDirectory + "/libro/db3";
-            context = new(ruta);
+            string ruta = FileSystem.AppDataDirectory + "/libros.db3";
+            //string ruta = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "/libro/db3");
+            context = new SQLiteConnection(ruta);
             context.CreateTable<Libro>();
         }
 
@@ -27,7 +28,7 @@ namespace LibrosITESRCMAUI.Repositories
 
         public IEnumerable<Libro> GetAll() 
         {
-            return context.Table<Libro>().OrderBy(x => x.Titulo).ToList();
+            return context.Table<Libro>().OrderBy(x => x.Titulo);
         }
 
         public Libro? Get(int id)
