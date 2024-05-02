@@ -26,10 +26,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+//CORS: Permite solicitudes que vienen desde otro dominio diferente.
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.MapControllers();
 
 app.Run();

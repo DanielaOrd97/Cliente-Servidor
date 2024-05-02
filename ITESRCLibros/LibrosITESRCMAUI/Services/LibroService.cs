@@ -48,12 +48,19 @@ namespace LibrosITESRCMAUI.Services
 
         }
 
+        public event Action? DatosActualizados;
+
         public async Task GetLibros()
         {
             try
             {
+                //Preferences almacena datos de preferencias de usuario constantemente. Como la fecha de actualizacion.
+                var fecha = Preferences.Get("UltimaFechaActualizacion",DateTime.MinValue);
+
+                bool aviso = false;
+
                 //Bajar informacion
-                var response = await cliente.GetFromJsonAsync<List<LibrosDTO>>("api/libros");
+                var response = await cliente.GetFromJsonAsync<List<LibrosDTO>>($"api/libros/{fecha:yyyy-MM-dd}/{fecha:HH}/{fecha:mm}");
 
                 //Guardar en base de datos
                 if(response != null)
@@ -73,7 +80,8 @@ namespace LibrosITESRCMAUI.Services
                             
                             };
 
-                            librosRepository.Insert(entidad);  
+                            librosRepository.Insert(entidad);
+                            aviso = true;
                         }
                         else 
                         {
@@ -82,15 +90,35 @@ namespace LibrosITESRCMAUI.Services
                                 if (entidad.Eliminado)
                                 {
                                     librosRepository.Delete(entidad);
+                                    aviso = true;
                                 }
                                 else
                                 {
-                                    librosRepository.Update(entidad);
+                                    if (libro.Titulo != entidad.Titulo || libro.Autor != entidad.Autor || libro.Portada != entidad.Portada)
+                                    {
+                                        librosRepository.Update(entidad);
+                                        aviso = true;
+                                    }
                                 }
                             }
 
                         }
                     }
+
+                    if (aviso)
+                    {
+
+                        //MainThread: Hilo principal de la interfaz de usuario.
+
+                        _ = MainThread.InvokeOnMainThreadAsync(() =>
+                        {
+                            DatosActualizados?.Invoke();
+                        });
+                    }
+
+
+
+                    Preferences.Set("UltimaFechaActualizacion", response.Max(x => x.Fecha));
                 }
 
                

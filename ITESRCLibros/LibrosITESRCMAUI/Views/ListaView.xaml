@@ -5,14 +5,22 @@
              x:Class="LibrosITESRCMAUI.Views.ListaView"
              Title="Lista de libros">
 
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Nuevo" Command="{Binding NuevoCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
     
-    <ListView ItemsSource="{Binding Libros}">
+    <ListView ItemsSource="{Binding Libros}" HasUnevenRows="True" SeparatorVisibility="Default">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ImageCell Text="{Binding Titulo}" Detail="{Binding Autor}" ImageSource="{Binding Portada}"></ImageCell>
+                <ViewCell>
+                    <Grid RowDefinitions="auto,auto" ColumnDefinitions="50, *">
+                            <Label TextColor="Black" Text="{Binding Titulo}" Grid.Column="1"></Label>
+                            <Label TextColor="Gray" Text="{Binding Autor}" Grid.Column="1" Grid.Row="1"></Label>
+                            <Image MaximumHeightRequest="100" Margin="5" Aspect="AspectFit" Source="{Binding Portada}" Grid.RowSpan="2"></Image>
+                        <Line StrokeThickness="1" Stroke="Gray" Grid.ColumnSpan="2" Grid.Row="1" VerticalOptions="End"></Line>
+                        </Grid>
+                </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

@@ -5,6 +5,7 @@ using LibrosITESRCMAUI.Models.Entities;
 using LibrosITESRCMAUI.Models.Validators;
 using LibrosITESRCMAUI.Repositories;
 using LibrosITESRCMAUI.Services;
+using LibrosITESRCMAUI.WinUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,8 +33,16 @@ namespace LibrosITESRCMAUI.ViewModels
         public LibrosViewModel()
         {
             ActualizarLibros();
+            App.LibroService.DatosActualizados += LibroService_DatosActualizados;
+            //App.LibroService = service;
+           // service.DatosActualizados += Service_DatosActualizados;
+            //_=service.GetLibros();
         }
 
+        private void LibroService_DatosActualizados()
+        {
+            ActualizarLibros();
+        }
 
         [RelayCommand]
         public void Nuevo() //vista

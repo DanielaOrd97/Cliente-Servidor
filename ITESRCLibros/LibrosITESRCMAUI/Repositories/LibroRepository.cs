@@ -15,7 +15,6 @@ namespace LibrosITESRCMAUI.Repositories
         public LibroRepository()
         {
             string ruta = FileSystem.AppDataDirectory + "/libros.db3";
-            //string ruta = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "/libro/db3");
             context = new SQLiteConnection(ruta);
             context.CreateTable<Libro>();
         }
