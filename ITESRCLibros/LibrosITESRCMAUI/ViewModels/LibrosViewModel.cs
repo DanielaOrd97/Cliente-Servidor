@@ -27,6 +27,9 @@ namespace LibrosITESRCMAUI.ViewModels
         private LibrosDTO? libro;
 
         [ObservableProperty]
+        private Libro? libroseleccionado;
+
+        [ObservableProperty]
         private string error = "";
 
 
@@ -42,6 +45,42 @@ namespace LibrosITESRCMAUI.ViewModels
         private void LibroService_DatosActualizados()
         {
             ActualizarLibros();
+        }
+
+
+        [RelayCommand]
+        public async Task Eliminar()
+        {
+
+            if(Libroseleccionado != null)
+            {
+               var result = await Shell.Current.DisplayAlert("Confirmar", $"Estas seguro de eliminar el libro llamado {Libroseleccionado.Titulo}?", "Si", "No");
+
+                if (result)
+                {
+                    await service.Eliminar(Libroseleccionado.Id);
+                    ActualizarLibros();
+                }
+            }
+
+            
+
+        }
+
+        [RelayCommand]
+        public void Editar()
+        {
+            if(Libroseleccionado != null)
+            {
+                Error = "";
+                Shell.Current.GoToAsync("//Editar");
+            }
+        }
+
+        [RelayCommand]
+        public void Guardar()
+        {
+
         }
 
         [RelayCommand]

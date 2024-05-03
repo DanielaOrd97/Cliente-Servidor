@@ -128,5 +128,26 @@ namespace LibrosITESRCMAUI.Services
 
             }
         }
+
+
+        public async Task Eliminar(int idLibro)
+        {
+            var response = await cliente.DeleteAsync("api/libros/" + idLibro);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await GetLibros();
+            }
+        }
+
+        public async Task Editar(LibrosDTO libro)
+        {
+            var response = await cliente.PutAsJsonAsync("api/libros", libro);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await GetLibros();
+            }
+        }
     }
 }
