@@ -1,0 +1,6 @@
+@PruebaJWT1_HostAddress = http://localhost:5252
+
+GET {{PruebaJWT1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
