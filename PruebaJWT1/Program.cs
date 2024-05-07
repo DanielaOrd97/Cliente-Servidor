@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,11 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddAuthentication("Bearer").AddBearerToken(x => new TokenValidationParameters
+//builder.Services.AddAuthentication("Bearer").AddBearerToken(x => new TokenValidationParameters
+//{
+//    ValidAudience = "com.itesrc.prueba",
+//    ValidIssuer = "https://prueba.itesrc.net/"
+//});
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
 {
-    ValidAudience = "com.itesrc.prueba",
-    ValidIssuer = "https://prueba.itesrc.net/"
-});
+    x.Audience = "prueba";
+    //x.Authority = "https://itesrc.net";
+    x.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("ESTAESMILLAVEDECIFRADODELTOKEN"));
+    x.TokenValidationParameters.ValidIssuer = "Saludos";
+}); 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -9,6 +9,7 @@ namespace PruebaJWT1.Controllers
     [Authorize]
     public class SaludosController : ControllerBase
     {
+        [HttpGet]
         public IActionResult Get()
         {
             return Ok("Hola a todos");
