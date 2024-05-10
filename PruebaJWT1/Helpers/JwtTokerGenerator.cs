@@ -13,8 +13,8 @@ namespace PruebaJWT1.Helpers
             Claims.Add(new Claim(ClaimTypes.Name, nombre));
             Claims.Add(new Claim(JwtRegisteredClaimNames.Iss, "Saludos"));
             Claims.Add(new Claim(JwtRegisteredClaimNames.Aud, "prueba"));
-            Claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()));
-            Claims.Add(new Claim(JwtRegisteredClaimNames.Exp, DateTime.Now.AddMinutes(5).ToString())); 
+            Claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()));
+            Claims.Add(new Claim(JwtRegisteredClaimNames.Exp, DateTime.UtcNow.AddMinutes(5).ToString())); 
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
 
@@ -24,8 +24,8 @@ namespace PruebaJWT1.Helpers
                 Issuer = "Saludos",
                 Audience = "prueba",
                 IssuedAt = DateTime.Now,
-                Expires = DateTime.Now.AddMinutes(5),
-                NotBefore = DateTime.Now.AddMinutes(-1),
+                Expires = DateTime.UtcNow.AddMinutes(5),
+                NotBefore = DateTime.UtcNow.AddMinutes(-1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("ESTAESMILLAVEDECIFRADODELTOKEN2024")),SecurityAlgorithms.HmacSha256)
                 //NotBefore = token anticipado
             };
