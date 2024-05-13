@@ -9,7 +9,20 @@ namespace PruebaJWT1.Helpers
         public string GetToken(string nombre)
         {
             List<Claim> Claims = new();
-            Claims.Add(new Claim("Rol", "Admin"));
+
+
+            if (nombre == "Daniela")
+            {
+                Claims.Add(new Claim(ClaimTypes.Role, "User"));
+            }
+            else
+            {
+                Claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+            }
+
+            //un token debe durar maximo 20 mins, cada vez que expire un token tiene que generar otro para volver a tener acceso a los metodos
+            //uno de las formas de manejar esto es un metodo que regenere un token o tener 2 tokens, uno con una duracion mucho mayor
+
             Claims.Add(new Claim(ClaimTypes.Name, nombre));
             Claims.Add(new Claim(JwtRegisteredClaimNames.Iss, "Saludos"));
             Claims.Add(new Claim(JwtRegisteredClaimNames.Aud, "prueba"));

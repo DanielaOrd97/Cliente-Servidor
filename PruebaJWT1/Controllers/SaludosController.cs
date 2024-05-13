@@ -6,12 +6,18 @@ namespace PruebaJWT1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class SaludosController : ControllerBase
     {
         [HttpGet]
         public IActionResult Get()
         {
+            var context = HttpContext;
+            if (User.Identity != null)
+            {
+                return Ok("Hola " + User.Identity.Name);
+            }
+                
             return Ok("Hola a todos");
         }
     }
