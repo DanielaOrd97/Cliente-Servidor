@@ -18,10 +18,10 @@ namespace NoticiasProyecto.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Get()
-        {
+      // [HttpGet]
+        //public IActionResult Get()
+        //{
 
-        }
+        //}
     }
 }
